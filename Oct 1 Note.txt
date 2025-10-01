@@ -1,0 +1,16 @@
+October 1st, 2025 
+
+Meeting with Bobby and Stephanie
+
+Sensor location: horizontal + vertical positions 
+
+Length info: 
+
+Adjusted R-sq: penalize non-independency of the sampling points. 
+
+Review: 
+
+1. Download NEON benthic invert data - data wrangling
+2. Created a multi-dimensional scaling matrix and plot (Fall 23) - Tomorrow Oct 2: Pick one site
+3. Four realms of statistics: (a) Parametric; (b) Non-parametric; (c) Bayesian; (d) Monte-Carlo
+

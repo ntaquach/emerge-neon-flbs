@@ -68,7 +68,7 @@
   
   CoolStuff4 <- CoolStuff4 %>% group_by(siteID) %>% pivot_wider(names_from = scientificName, values_from = scientificName, values_fn = list(scientificName = length))
   
-  CoolStuff4 <- CoolStuff4 %>% select('siteID', sort(colnames(.)))
+  CoolStuff4 <- CoolStuff4 %>% select('siteID', sort(colnames(.))) %>% replace(is.na(.), 0)
 
 
 

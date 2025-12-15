@@ -14,3 +14,66 @@ Review:
 2. Created a multi-dimensional scaling matrix and plot (Fall 23) - Tomorrow Oct 2: Pick one site
 3. Four realms of statistics: (a) Parametric; (b) Non-parametric; (c) Bayesian; (d) Monte-Carlo
 
+
+
+October 2, 2025
+
+AUC: observed area over the area between the diagonal line and 1:1 line.
+
+Random Forest: similar to classification tree. With some rules, but we build a model to predict. 
+
+
+Laurel's talk:
+
+1. Aquatic vegetation affect GPP?
+2. Change of aquatic veg after dam removal?
+
+Vadeboncoeur and Power 2017
+
+- How much peak goes up represents how fast algae were growing.
+- Macrophytes do not shape summer GPP time series, but TOTAL BIOMASS (algal + plants + biofilm) related strongly with GPP.
+- Largest ER with largest biomass (could also be decomposition of macrophytes?)
+
+
+What about NEP relationship (other than GPP and ER)? The community of other biota.
+What about the contribution of gas exchange between water and atm? 
+
+
+Oct 3, 2025
+
+- Use Variable Importance plot to make hypothesis of what variable is most important explaining. 
+- Use RF to predict NAs or missing data.
+- Check for correlation among predictor variables first. 
+
+Why we cannot measure total biomass in streams? *Too much turnover and harvested too quickly* 
+=> So we measure either CO2 or O2. CO2 is hard (sensor), so we do O2. 
+
+- Partial pressure of O2 is lower at higher elevation. 
+
+- GPP (C fixation before respiration): used for (1) biomass and (2) respiration
+
+=> NPP = GPP + Plant respiration
+=> NEP = GPP + ER (Both autotrophic and heterotrophic R) => Respiration sucks out O2 so it is never at saturation level!
+
+K (gas exchange rate): 1/d unit => k (gas exchange velocity): m/d
+
+How to estimate k?
+
+1. Tracer gas addition
+2. Night time regression
+3. Empirical models
+
+- Bayesian models (Markov-chain Monte Carlo) predict GPP and ER much better, with much less uncertainty compared to gradient search.
+
+- Solar time: what time it would be when sun is over your head
+- Always use UTC time. 
+- 5% or higher is good for modeling metabolism.
+- GPP and ER covariate => plants are doing P and R.
+
+
+
+
+
+
+
+

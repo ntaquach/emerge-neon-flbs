@@ -49,14 +49,12 @@
 
 # First set the initial working directory.
 
-  setwd({'paste your working directory path here & delete curly brackets'})	# Update this path.
+  # setwd({'paste your working directory path here & delete curly brackets'})	# Update this path.
 
 
 # Assign your NEON token value to a new 'NEONtoken' variable.
 
-  NEONtoken <- {'paste your NEON token here & delete curly brackets'}	# Update this line.
-
-  NEONtoken <-	'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJodHRwczovL2RhdGEubmVvbnNjaWVuY2Uub3JnL2FwaS92MC8iLCJzdWIiOiJkam1jZ2FydmV5QHZjdS5lZHUiLCJzY29wZSI6InJhdGU6cHVibGljIiwiaXNzIjoiaHR0cHM6Ly9kYXRhLm5lb25zY2llbmNlLm9yZy8iLCJleHAiOjE4MjI3MzI2NjksImlhdCI6MTY2NTA1MjY2OSwiZW1haWwiOiJkam1jZ2FydmV5QHZjdS5lZHUifQ.dabCQWA6803aNxOD_NGO0IPTrKFAuZ0rO_siuQ_msxJFUN7lGzmm_d4hRwuo8IKrj0XZwJBJCFDbxZ8EsfS0YA'
+  NEONtoken <-	'eyJ0eXAiOiJKV1QiLCJhbGciOiJFUzI1NiJ9.eyJhdWQiOiJodHRwczovL2RhdGEubmVvbnNjaWVuY2Uub3JnL2FwaS92MC8iLCJzdWIiOiJ0aWVuYW5ocXVhY2huZ3V5ZW5AZ21haWwuY29tIiwic2NvcGUiOiJyYXRlOnB1YmxpYyIsImlzcyI6Imh0dHBzOi8vZGF0YS5uZW9uc2NpZW5jZS5vcmcvIiwiZXhwIjoxOTE1NjMwOTc3LCJpYXQiOjE3NTc5NTA5NzcsImVtYWlsIjoidGllbmFuaHF1YWNobmd1eWVuQGdtYWlsLmNvbSJ9.jypPyKBBBuWIVDH4YGv3UlZeIUtMmFOkebSWYAcEOFHyEe37bXfj42UmuE0NRMKy4DVBl5YFF1YJQ5ezFZJVvw'
 
 
 # Specify the appropriate 4-letter NEON site code (e.g.,'ARIK') to download and assign it to a new 'SiteCode' variable.
@@ -64,7 +62,7 @@
 # https://www.neonscience.org/field-sites/explore-field-sites
 # To download all sites at once, use 'all' (i.e., site = 'all').
 
-  SiteCode <- {'paste your NEON site code here & delete curly brackets'}	# Update this line.
+  SiteCode <- "ARIK"	# Update this line.
 
 
 # Create a new folder/directory to save results, with the SiteCode and "InvertData" in the folder name.
@@ -113,10 +111,15 @@
 
 # Load the NEON invertebrate data file ("inv_persample.csv").
 
-  InvertData <- read.csv("filesToStack20120/stackedFiles/inv_persample.csv", na.strings = "", stringsAsFactors = F)
+  # InvertData <- read.csv("filesToStack20120/stackedFiles/inv_persample.csv", na.strings = "", stringsAsFactors = F)
 
 
+macro <- loadByProduct(dpID = "DP1.20120.001", site = SiteCode,
+                startdate = StartDate, enddate = EndDate,
+                package = "basic", check.size = F, include.provisional = T,
+                token = NEONtoken)
 
+InvertData <- macro$inv_persample
 #-----------------------------------------------------------------
 # Step 3. Prepare a new table of sampling dates that are formatted for R package 'ganttrify'.
 #-----------------------------------------------------------------
@@ -193,7 +196,7 @@
 
   OutputName <- paste(SiteCode, "_Invertebrates_GanttData.csv", sep = "")
   
-  write.csv(GanttData, OutputName, row.names = F)
+  write.csv(GanttData, "./MultidimensionalScaling/Temporal variation/GanntData.csv", row.names = F)
 
 
 
@@ -241,7 +244,7 @@
 
   OutputName <- paste(SiteCode, "_Invertebrates_Replicates.csv", sep = "")
   
-  write.csv(Replicates, OutputName, row.names = F)
+  write.csv(Replicates, "./MultidimensionalScaling/Temporal variation/Replicates.csv", row.names = F)
 
 
 
@@ -269,7 +272,7 @@
 
   OutputName <- paste(SiteCode, "_Invertebrates_GanttChart.pdf", sep = "")
   
-  ggsave(GanttChart, filename = OutputName, width = 15, height = 1.5)
+  ggsave(GanttChart, filename = "./MultidimensionalScaling/Temporal variation/GanttChart.pdf", width = 15, height = 1.5)
 
 
 
@@ -279,9 +282,9 @@
 
 # Load the NEON [inv_taxonomyProcessed] table from the [NEONdata] file.
 
-  InvertData <- read.csv("filesToStack20120/stackedFiles/inv_taxonomyProcessed.csv", na.strings = "", stringsAsFactors = F)
+  # InvertData <- read.csv("filesToStack20120/stackedFiles/inv_taxonomyProcessed.csv", na.strings = "", stringsAsFactors = F)
 
-
+InvertData <- macro$inv_taxonomyProcessed
 # SELECT ONLY ENTRIES FOR TRUE INSECTS (class = "Insecta").#############################
 
   InsectData <- subset(InvertData, class == "Insecta")
@@ -414,9 +417,9 @@
 
 # Save the [AssemblageMatrix] dataframe to a .csv file for later use.
 
-  OutputName <- paste(SiteCode, "_Insects_AssemblageMatrix.csv", sep = "")
+  # OutputName <- paste(SiteCode, "_Insects_AssemblageMatrix.csv", sep = "")
 
-  write.csv(AssemblageMatrix, OutputName, row.names = T)
+  write.csv(AssemblageMatrix, "./MultidimensionalScaling/Temporal variation/_Insects_AssemblageMatrix.csv", row.names = T)
 
 
 
@@ -429,9 +432,9 @@
 
   DistMat <- as.matrix(vegdist(AssemblageMatrix, method = "horn", binary = F))
 
-  OutputName <- paste(SiteCode, "_Insects_DistanceMatrix_HornMorisita.csv", sep = "")
+  # OutputName <- paste(SiteCode, "./MultidimensionalScaling/Temporal variation/_Insects_DistanceMatrix_HornMorisita.csv", sep = "")
  
-  write.csv(DistMat, OutputName)
+  write.csv(DistMat, "./MultidimensionalScaling/Temporal variation/_Insects_DistanceMatrix_HornMorisita.csv")
 
 
 # Then perform NMDS with the 'metaMDS' function in 'vegan'.
@@ -505,10 +508,10 @@
 	
 
 # Rebuild the ordination scatterplot when the x and y axis limits are set from -0.8 to 0.8, then save.
-
-  NMDSplot <- NMDSplot + xlim(-0.8, 0.8) + ylim(-0.8, 0.8)
-
-  NMDSplot
+# 
+#   NMDSplot <- NMDSplot + xlim(-0.8, 0.8) + ylim(-0.8, 0.8)
+# 
+#   NMDSplot
 
   OutputName <- paste(SiteCode, "_NMDS_Plot_Insects.pdf", sep = "")
 
@@ -529,13 +532,13 @@
 
   NMDSplot
   
-  OutputName <- paste(SiteCode, "_NMDS_Plot_NoPoints_Insects.pdf", sep = "")
+  # OutputName <- paste(SiteCode, "./MultidimensionalScaling/Temporal variation/_NMDS_Plot_NoPoints_Insects.pdf", sep = "")
 
-    ggsave(OutputName, width = 10, height = 10, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_NMDS_Plot_NoPoints_Insects.pdf", width = 10, height = 10, units = "in")
 
-  OutputName <- paste(SiteCode, "_NMDS_Plot_NoPoints_Insects.png", sep = "")
+  # OutputName <- paste(SiteCode, "./MultidimensionalScaling/Temporal variation/_NMDS_Plot_NoPoints_Insects.png", sep = "")
 
-    ggsave(OutputName, width = 10, height = 10, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_NMDS_Plot_NoPoints_Insects.png", width = 10, height = 10, units = "in")
 
 
 
@@ -547,6 +550,7 @@
 
   SeasonData <- read.csv("filesToStack20120/stackedFiles/inv_fieldData.csv", na.strings = "", stringsAsFactors = F)
 
+    SeasonData <- macro$inv_fieldData
 
 # Keep only the 'sampleID' and 'boutNumber' columns from [SeasonData].
 
@@ -620,9 +624,9 @@
 
 # Save the edited .csv file.
 
-  OutputName <- paste(SiteCode, "_NMDS_AxisScores_Insects.csv", sep = "")
+  # OutputName <- paste(SiteCode, "_NMDS_AxisScores_Insects.csv", sep = "")
   
-  write.csv(NMDSscores, OutputName, row.names = T)
+  write.csv(NMDSscores, "./MultidimensionalScaling/Temporal variation/_NMDS_AxisScores_Insects.csv", row.names = T)
   
 
 # Create a custom color palette to represent seasons.
@@ -639,21 +643,21 @@
 					
 					geom_point(aes(x = MDS1, y = MDS2, color = SeasonName), size = 4) +
 					
-					scale_x_continuous(name = 'Axis 1', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
-					  
-				    scale_y_continuous(name = 'Axis 2', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
+				# 	scale_x_continuous(name = 'Axis 1', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
+				# 	  
+				#     scale_y_continuous(name = 'Axis 2', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
 					
 					scale_color_manual(values = ColorPal)
 
   NMDSplot
 
-  OutputName <- paste(SiteCode, "_NMDS_PlotSeason_Insects.pdf", sep = "")
+  # OutputName <- paste(SiteCode, "_NMDS_PlotSeason_Insects.pdf", sep = "")
 
-    ggsave(OutputName, width = 8, height = 7, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_NMDS_PlotSeason_Insects.pdf", width = 8, height = 7, units = "in")
 
-  OutputName <- paste(SiteCode, "_NMDS_PlotSeason_Insects.png", sep = "")
+  # OutputName <- paste(SiteCode, "_NMDS_PlotSeason_Insects.png", sep = "")
 
-    ggsave(OutputName, width = 8, height = 7, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_NMDS_PlotSeason_Insects.png", width = 8, height = 7, units = "in")
 
 
 
@@ -676,21 +680,21 @@
 					
 					geom_polygon(alpha = 0.4) + geom_point(data = NMDSscores, aes(x = MDS1, y = MDS2), size = 2.5, alpha = 0.8) +
 									
-				    scale_x_continuous(name = 'Axis 1', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
-					  
-				    scale_y_continuous(name = 'Axis 2', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
+				    # scale_x_continuous(name = 'Axis 1', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
+				    # 
+				    # scale_y_continuous(name = 'Axis 2', breaks = c(-0.8, -0.4, 0, 0.4, 0.8), labels = c('-0.8', '', '0', '', '0.8'), limits = c(-0.8, 0.8)) +
 					  
 				    scale_color_manual(values = ColorPal) + scale_fill_manual(values = ColorPal)
 
   NMDSplot
   
-  OutputName <- paste(SiteCode, "_ConvexHullOverlap_Insects.pdf", sep = "")
+  # OutputName <- paste(SiteCode, "_ConvexHullOverlap_Insects.pdf", sep = "")
 
-    ggsave(OutputName, width = 8, height = 7, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_ConvexHullOverlap_Insects.pdf", width = 8, height = 7, units = "in")
 
-  OutputName <- paste(SiteCode, "_ConvexHullOverlap_Insects.png", sep = "")
+  # OutputName <- paste(SiteCode, "_ConvexHullOverlap_Insects.png", sep = "")
 
-    ggsave(OutputName, width = 8, height = 7, units = "in")
+    ggsave("./MultidimensionalScaling/Temporal variation/_ConvexHullOverlap_Insects.png", width = 8, height = 7, units = "in")
 
 
 
@@ -862,9 +866,9 @@
 
 # Export [ConHulTest] to a .csv file.
 
-  OutputName <- paste(SiteCode, "_ConvexHull_Area_Overlap.csv", sep = "")
+  # OutputName <- paste(SiteCode, "_ConvexHull_Area_Overlap.csv", sep = "")
   
-  write.csv(ConHulTest, OutputName, row.names = T)
+  write.csv(ConHulTest, "./MultidimensionalScaling/Temporal variation/_ConvexHull_Area_Overlap.csv", row.names = T)
 
 
 

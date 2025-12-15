@@ -1,0 +1,13 @@
+ Etheostoma_olmstedi_presence                                                                                                                                                                              
+                         0.05 when PctCrop2001Cat >= 0.039 & PctUrban2001Cat <  0.894 & PctWdWet2001Cat <  0.094                                                           & ClayCat <  34                 
+                         0.06 when PctCrop2001Cat <  0.039                                                       & Slope >= -4.5                                                                           
+                         0.13 when PctCrop2001Cat >= 0.039                            & PctWdWet2001Cat <  0.094                                                           & ClayCat >= 34                 
+                         0.13 when PctCrop2001Cat <  0.039 & PctUrban2001Cat <  0.565                            & Slope <  -4.5                                                                           
+                         0.13 when PctCrop2001Cat <  0.039 & PctUrban2001Cat >= 0.565                            & Slope <  -4.5                      & NO3_2008Cat <  7.2                                 
+                         0.17 when PctCrop2001Cat >= 0.039 & PctUrban2001Cat <  0.088 & PctWdWet2001Cat >= 0.094                 & ArbolateSum <  2.7                                                      
+                         0.26 when PctCrop2001Cat <  0.039 & PctUrban2001Cat >= 0.565                            & Slope <  -4.5 & ArbolateSum <  1.6 & NO3_2008Cat >= 7.2                 & CaOCat >= 0.25
+                         0.76 when PctCrop2001Cat >= 0.039 & PctUrban2001Cat >= 0.894 & PctWdWet2001Cat <  0.094                                                           & ClayCat <  34                 
+                         0.81 when PctCrop2001Cat >= 0.039 & PctUrban2001Cat <  0.088 & PctWdWet2001Cat >= 0.094                 & ArbolateSum >= 2.7                                                      
+                         0.82 when PctCrop2001Cat <  0.039 & PctUrban2001Cat >= 0.565                            & Slope <  -4.5 & ArbolateSum >= 1.6 & NO3_2008Cat >= 7.2                                 
+                         0.82 when PctCrop2001Cat <  0.039 & PctUrban2001Cat >= 0.565                            & Slope <  -4.5 & ArbolateSum <  1.6 & NO3_2008Cat >= 7.2                 & CaOCat <  0.25
+                         0.94 when PctCrop2001Cat >= 0.039 & PctUrban2001Cat >= 0.088 & PctWdWet2001Cat >= 0.094                                                                                           
